@@ -9,4 +9,5 @@ dependencyResolutionManagement {
 rootProject.name = "ComposePokeDex"
 include ':app',
         ':data:remote',
-        ':data:local'
+        ':data:local',
+        ':domain'
