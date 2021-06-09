@@ -1,1 +1,19 @@
+import dependencies.Dep
+
 apply from: "${rootDir.absolutePath}/android_common_build.gradle"
+
+dependencies {
+    // OkHttp
+    implementation Dep.Square.OkHttp.okHttp
+    implementation Dep.Square.OkHttp.loggingInterceptor
+
+    // Retrofit
+    implementation Dep.Square.Retrofit.retrofit
+    implementation Dep.Square.Retrofit.converterGson
+
+    // Gson
+    implementation Dep.Google.gson
+
+    // Kotlin Result
+    implementation Dep.Other.KotlinResult.kotlinResult
+}

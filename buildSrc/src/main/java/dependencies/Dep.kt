@@ -20,6 +20,7 @@ object Dep {
 
     object Google {
         const val material = "com.google.android.material:material:1.3.0"
+        val gson = "com.google.code.gson:gson:2.8.6"
     }
 
     object Compose {
@@ -35,5 +36,26 @@ object Dep {
 
     object JUnit {
         const val junit = "junit:junit:4.+"
+    }
+
+    object Square {
+        object OkHttp {
+            val version = "4.9.0"
+            val okHttp = "com.squareup.okhttp3:okhttp:$version"
+            val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:$version"
+        }
+
+        object Retrofit {
+            val version = "2.9.0"
+            val retrofit = "com.squareup.retrofit2:retrofit:$version"
+            val converterGson = "com.squareup.retrofit2:converter-gson:$version"
+        }
+    }
+
+    object Other {
+        object KotlinResult {
+            val version = "1.1.10"
+            val kotlinResult = "com.michael-bull.kotlin-result:kotlin-result:$version"
+        }
     }
 }
