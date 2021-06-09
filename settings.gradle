@@ -13,4 +13,5 @@ include ':app',
         ':data:repository',
         ':domain',
         ':shared',
-        ':common'
+        ':presentation:common',
+        ':home'
