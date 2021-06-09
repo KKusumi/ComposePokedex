@@ -14,6 +14,7 @@
             <option value="$PROJECT_DIR$/data/local" />
             <option value="$PROJECT_DIR$/data/remote" />
             <option value="$PROJECT_DIR$/domain" />
+            <option value="$PROJECT_DIR$/repository" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

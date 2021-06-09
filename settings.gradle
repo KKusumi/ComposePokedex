@@ -10,4 +10,5 @@ rootProject.name = "ComposePokeDex"
 include ':app',
         ':data:remote',
         ':data:local',
+        ':repository'
         ':domain'
