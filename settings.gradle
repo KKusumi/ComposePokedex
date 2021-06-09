@@ -15,4 +15,4 @@ include ':app',
         ':shared',
         ':presentation:common',
         ':presentation:home',
-        ':pokemon_detail'
+        ':presentation:pokemon_detail'
