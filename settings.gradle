@@ -14,4 +14,4 @@ include ':app',
         ':domain',
         ':shared',
         ':presentation:common',
-        ':home'
+        ':presentation:home'
