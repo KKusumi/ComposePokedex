@@ -12,4 +12,5 @@ include ':app',
         ':data:local',
         ':data:repository',
         ':domain',
-        ':shared'
+        ':shared',
+        ':common'
