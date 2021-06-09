@@ -12,10 +12,6 @@ object Dep {
         const val appCompat = "androidx.appcompat:appcompat:1.3.0"
         const val activityCompose = "androidx.activity:activity-compose:1.3.0-beta01"
 
-        object Lifecycle {
-            const val runtime = "androidx.lifecycle:lifecycle-runtime-ktx:2.3.1"
-        }
-
         object Test {
             const val junit = "androidx.test.ext:junit:1.1.2"
             const val espresso = "androidx.test.espresso:espresso-core:3.3.0"

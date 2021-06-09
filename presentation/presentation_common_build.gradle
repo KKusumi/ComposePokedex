@@ -17,10 +17,6 @@ dependencies {
     implementation Dep.AndroidX.activityCompose
     implementation Dep.Google.material
 
-    // Test
-    androidTestImplementation Dep.AndroidX.Test.espresso
-    androidTestImplementation Dep.Compose.UI.test
-
     // Compose
     implementation Dep.Compose.UI.ui
     implementation Dep.Compose.UI.tooling
