@@ -1,0 +1,19 @@
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        jcenter() // Warning: this repository is going to shut down soon
+    }
+}
+rootProject.name = "ComposePokeDex"
+include ':app',
+        ':data:remote',
+        ':data:local',
+        ':data:repository',
+        ':domain',
+        ':model',
+        ':shared',
+        ':presentation:common',
+        ':presentation:home',
+        ':presentation:pokemon_detail'

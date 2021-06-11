@@ -1,0 +1,24 @@
+import dependencies.Dep
+
+apply from: "${rootDir.absolutePath}/android_common_build.gradle"
+
+android {
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion Dep.Compose.version
+    }
+}
+
+dependencies {
+    implementation Dep.AndroidX.coreKtx
+    implementation Dep.AndroidX.appCompat
+    implementation Dep.AndroidX.activityCompose
+    implementation Dep.Google.material
+
+    // Compose
+    implementation Dep.Compose.UI.ui
+    implementation Dep.Compose.UI.tooling
+    implementation Dep.Compose.material
+}

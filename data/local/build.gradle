@@ -1,0 +1,1 @@
+apply from: "${rootDir.absolutePath}/android_common_build.gradle"
