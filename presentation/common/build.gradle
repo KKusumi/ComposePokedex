@@ -1,1 +1,0 @@
-apply from: "${rootDir.absolutePath}/presentation/presentation_common_build.gradle"
