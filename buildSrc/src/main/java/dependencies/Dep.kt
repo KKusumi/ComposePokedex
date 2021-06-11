@@ -5,6 +5,7 @@ object Dep {
     object Plugin {
         const val gradle = "com.android.tools.build:gradle:7.0.0-beta03"
         const val kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.10"
+        const val hilt = "com.google.dagger:hilt-android-gradle-plugin:${Google.Hilt.version}"
     }
 
     object AndroidX {
@@ -21,6 +22,12 @@ object Dep {
     object Google {
         const val material = "com.google.android.material:material:1.3.0"
         val gson = "com.google.code.gson:gson:2.8.6"
+
+        object Hilt {
+            const val version = "2.35.1"
+            const val android = "com.google.dagger:hilt-android:$version"
+            const val compiler = "com.google.dagger:hilt-android-compiler:$version"
+        }
     }
 
     object Compose {
