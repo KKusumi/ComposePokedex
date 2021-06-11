@@ -24,7 +24,7 @@ object Dep {
         const val gson = "com.google.code.gson:gson:2.8.6"
 
         object Hilt {
-            const val version = "2.35.1"
+            const val version = "2.36"
             const val android = "com.google.dagger:hilt-android:$version"
             const val compiler = "com.google.dagger:hilt-android-compiler:$version"
         }
