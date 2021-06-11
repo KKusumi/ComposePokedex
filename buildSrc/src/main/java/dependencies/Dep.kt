@@ -21,7 +21,7 @@ object Dep {
 
     object Google {
         const val material = "com.google.android.material:material:1.3.0"
-        val gson = "com.google.code.gson:gson:2.8.6"
+        const val gson = "com.google.code.gson:gson:2.8.6"
 
         object Hilt {
             const val version = "2.35.1"
@@ -47,22 +47,22 @@ object Dep {
 
     object Square {
         object OkHttp {
-            val version = "4.9.0"
-            val okHttp = "com.squareup.okhttp3:okhttp:$version"
-            val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:$version"
+            const val version = "4.9.0"
+            const val okHttp = "com.squareup.okhttp3:okhttp:$version"
+            const val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:$version"
         }
 
         object Retrofit {
-            val version = "2.9.0"
-            val retrofit = "com.squareup.retrofit2:retrofit:$version"
-            val converterGson = "com.squareup.retrofit2:converter-gson:$version"
+            const val version = "2.9.0"
+            const val retrofit = "com.squareup.retrofit2:retrofit:$version"
+            const val converterGson = "com.squareup.retrofit2:converter-gson:$version"
         }
     }
 
     object Other {
         object KotlinResult {
-            val version = "1.1.10"
-            val kotlinResult = "com.michael-bull.kotlin-result:kotlin-result:$version"
+            const val version = "1.1.10"
+            const val kotlinResult = "com.michael-bull.kotlin-result:kotlin-result:$version"
         }
     }
 }
