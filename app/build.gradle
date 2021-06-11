@@ -43,10 +43,16 @@ android {
     }
 }
 dependencies {
+    // AndroidX
     implementation Dep.AndroidX.coreKtx
     implementation Dep.AndroidX.appCompat
     implementation Dep.AndroidX.activityCompose
+    implementation Dep.AndroidX.Navigation.compose
+
+    // Google
     implementation Dep.Google.material
+    implementation Dep.Google.Hilt.android
+    kapt Dep.Google.Hilt.compiler
 
     // Test
     androidTestImplementation Dep.AndroidX.Test.espresso
@@ -56,8 +62,4 @@ dependencies {
     implementation Dep.Compose.UI.ui
     implementation Dep.Compose.UI.tooling
     implementation Dep.Compose.material
-
-    // Hilt
-    implementation Dep.Google.Hilt.android
-    kapt Dep.Google.Hilt.compiler
 }
