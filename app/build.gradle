@@ -1,8 +1,40 @@
 import dependencies.Dep
+import dependencies.Versions
 
-apply from: "${rootDir.absolutePath}/android_common_build.gradle"
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
 
 android {
+    compileSdk Versions.compileSdk
+
+    defaultConfig {
+        applicationId "com.example.composepokedex"
+        minSdk Versions.minSdk
+        targetSdk Versions.targetSdk
+        versionCode Versions.versionCode
+        versionName Versions.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary true
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+        useIR = true
+    }
     buildFeatures {
         compose true
     }
@@ -10,7 +42,6 @@ android {
         kotlinCompilerExtensionVersion Dep.Compose.version
     }
 }
-
 dependencies {
     implementation Dep.AndroidX.coreKtx
     implementation Dep.AndroidX.appCompat
@@ -25,4 +56,8 @@ dependencies {
     implementation Dep.Compose.UI.ui
     implementation Dep.Compose.UI.tooling
     implementation Dep.Compose.material
+
+    // Hilt
+    implementation Dep.Google.Hilt.android
+    kapt Dep.Google.Hilt.compiler
 }

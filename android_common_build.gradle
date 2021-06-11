@@ -1,7 +1,7 @@
 import dependencies.Dep
 import dependencies.Versions
 
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
@@ -10,7 +10,6 @@ android {
     compileSdk Versions.compileSdk
 
     defaultConfig {
-        applicationId "com.example.composepokedex"
         minSdk Versions.minSdk
         targetSdk Versions.targetSdk
         versionCode Versions.versionCode
