@@ -40,4 +40,8 @@ dependencies {
     // Test
     testImplementation Dep.JUnit.junit
     androidTestImplementation Dep.AndroidX.Test.junit
+
+    // Hilt
+    implementation Dep.Google.Hilt.android
+    kapt Dep.Google.Hilt.compiler
 }
