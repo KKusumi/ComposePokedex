@@ -13,6 +13,14 @@ object Dep {
         const val appCompat = "androidx.appcompat:appcompat:1.3.0"
         const val activityCompose = "androidx.activity:activity-compose:1.3.0-beta01"
 
+        object Navigation {
+            const val compose = "androidx.navigation:navigation-compose:2.4.0-alpha02"
+        }
+
+        object Hilt {
+            const val lifecycleViewModel = "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03"
+        }
+
         object Test {
             const val junit = "androidx.test.ext:junit:1.1.2"
             const val espresso = "androidx.test.espresso:espresso-core:3.3.0"
