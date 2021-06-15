@@ -43,11 +43,14 @@ android {
     }
 }
 dependencies {
+    implementation project(':presentation:home')
+
     // AndroidX
     implementation Dep.AndroidX.coreKtx
     implementation Dep.AndroidX.appCompat
     implementation Dep.AndroidX.activityCompose
     implementation Dep.AndroidX.Navigation.compose
+    implementation Dep.AndroidX.Hilt.navigationCompose
 
     // Google
     implementation Dep.Google.material
@@ -62,4 +65,5 @@ dependencies {
     implementation Dep.Compose.UI.ui
     implementation Dep.Compose.UI.tooling
     implementation Dep.Compose.material
+    implementation Dep.Compose.runtime
 }

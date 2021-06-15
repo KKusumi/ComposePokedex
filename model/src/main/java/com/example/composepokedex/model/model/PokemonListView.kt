@@ -11,6 +11,9 @@ data class PokemonListView(
                 pokemons = pokemonListResponse.results.map { Pokemon.transform(it) }
             )
         }
+        fun getEmptyInstance(): PokemonListView {
+            return PokemonListView(listOf())
+        }
     }
 
     data class Pokemon(

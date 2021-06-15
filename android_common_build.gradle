@@ -41,6 +41,10 @@ dependencies {
     testImplementation Dep.JUnit.junit
     androidTestImplementation Dep.AndroidX.Test.junit
 
+    // AndroidX
+    implementation Dep.AndroidX.Hilt.navigationCompose
+    implementation Dep.Compose.runtime
+
     // Hilt
     implementation Dep.Google.Hilt.android
     kapt Dep.Google.Hilt.compiler

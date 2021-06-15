@@ -19,6 +19,7 @@ object Dep {
 
         object Hilt {
             const val lifecycleViewModel = "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03"
+            const val navigationCompose = "androidx.hilt:hilt-navigation-compose:1.0.0-alpha02"
         }
 
         object Test {
@@ -41,6 +42,7 @@ object Dep {
     object Compose {
         const val version = "1.0.0-beta08"
         const val material = "androidx.compose.material:material:$version"
+        const val runtime = "androidx.compose.runtime:runtime-livedata:$version"
 
         object UI {
             const val ui = "androidx.compose.ui:ui:$version"
