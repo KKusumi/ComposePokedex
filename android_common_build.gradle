@@ -43,7 +43,7 @@ dependencies {
 
     // AndroidX
     implementation Dep.AndroidX.Hilt.navigationCompose
-    implementation Dep.Compose.runtime
+    implementation Dep.AndroidX.Compose.runtime
 
     // Hilt
     implementation Dep.Google.Hilt.android

@@ -7,7 +7,7 @@ android {
         compose true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion Dep.Compose.version
+        kotlinCompilerExtensionVersion Dep.AndroidX.Compose.version
     }
 }
 
@@ -21,9 +21,9 @@ dependencies {
     implementation Dep.Google.material
 
     // Compose
-    implementation Dep.Compose.UI.ui
-    implementation Dep.Compose.UI.tooling
-    implementation Dep.Compose.material
+    implementation Dep.AndroidX.Compose.UI.ui
+    implementation Dep.AndroidX.Compose.UI.tooling
+    implementation Dep.AndroidX.Compose.material
 
     // Hilt
     implementation Dep.AndroidX.Hilt.lifecycleViewModel

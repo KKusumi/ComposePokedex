@@ -39,7 +39,7 @@ android {
         compose true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion Dep.Compose.version
+        kotlinCompilerExtensionVersion Dep.AndroidX.Compose.version
     }
 }
 dependencies {
@@ -59,11 +59,11 @@ dependencies {
 
     // Test
     androidTestImplementation Dep.AndroidX.Test.espresso
-    androidTestImplementation Dep.Compose.UI.test
+    androidTestImplementation Dep.AndroidX.Compose.UI.test
 
     // Compose
-    implementation Dep.Compose.UI.ui
-    implementation Dep.Compose.UI.tooling
-    implementation Dep.Compose.material
-    implementation Dep.Compose.runtime
+    implementation Dep.AndroidX.Compose.UI.ui
+    implementation Dep.AndroidX.Compose.UI.tooling
+    implementation Dep.AndroidX.Compose.material
+    implementation Dep.AndroidX.Compose.runtime
 }
