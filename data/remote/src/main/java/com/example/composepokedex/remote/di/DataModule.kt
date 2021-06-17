@@ -1,6 +1,8 @@
 package com.example.composepokedex.remote.di
 
 import com.example.composepokedex.remote.PokeApi
+import com.example.composepokedex.remote.PokeApiClient
+import com.example.composepokedex.remote.PokeApiClientImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -26,5 +28,11 @@ object DataModule {
     @Singleton
     fun providePokeApi(retrofit: Retrofit): PokeApi {
         return retrofit.create(PokeApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun providePokeApiClient(pokeApi: PokeApi): PokeApiClient {
+        return PokeApiClientImpl(pokeApi)
     }
 }

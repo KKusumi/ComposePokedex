@@ -14,7 +14,7 @@ fun PokeDexNavHost(
 ) {
     NavHost(navController = navController, startDestination = PokeDexDestination.HOME.name) {
         composable(route = PokeDexDestination.HOME.name) {
-            val homeViewModel: HomeViewModel = hiltViewModel()
+            val homeViewModel = hiltViewModel<HomeViewModel>()
             HomeScreen(homeViewModel)
         }
     }

@@ -43,6 +43,9 @@ android {
     }
 }
 dependencies {
+    implementation project(':data:remote')
+    implementation project(':data:repository')
+    implementation project(':domain')
     implementation project(':presentation:home')
 
     // AndroidX
@@ -66,4 +69,7 @@ dependencies {
     implementation Dep.AndroidX.Compose.UI.tooling
     implementation Dep.AndroidX.Compose.material
     implementation Dep.AndroidX.Compose.runtime
+
+    // Retrofit
+    implementation Dep.Square.Retrofit.retrofit
 }
