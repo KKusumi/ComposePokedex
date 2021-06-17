@@ -14,7 +14,7 @@ object Dep {
         const val activityCompose = "androidx.activity:activity-compose:1.3.0-beta01"
 
         object Compose {
-            const val version = "1.0.0-beta08"
+            const val version = "1.0.0-beta09"
             const val material = "androidx.compose.material:material:$version"
             const val runtime = "androidx.compose.runtime:runtime-livedata:$version"
 
@@ -43,6 +43,10 @@ object Dep {
     object Google {
         const val material = "com.google.android.material:material:1.3.0"
         const val gson = "com.google.code.gson:gson:2.8.6"
+
+        object Accompanist {
+            const val coil = "com.google.accompanist:accompanist-coil:0.12.0"
+        }
 
         object Hilt {
             const val version = "2.37"
