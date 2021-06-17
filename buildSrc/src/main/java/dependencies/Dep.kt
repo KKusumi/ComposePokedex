@@ -3,7 +3,7 @@ package dependencies
 object Dep {
 
     object Plugin {
-        const val gradle = "com.android.tools.build:gradle:7.0.0-beta03"
+        const val gradle = "com.android.tools.build:gradle:7.1.0-alpha02"
         const val kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.10"
         const val hilt = "com.google.dagger:hilt-android-gradle-plugin:${Google.Hilt.version}"
     }
@@ -45,7 +45,7 @@ object Dep {
         const val gson = "com.google.code.gson:gson:2.8.6"
 
         object Hilt {
-            const val version = "2.36"
+            const val version = "2.37"
             const val android = "com.google.dagger:hilt-android:$version"
             const val compiler = "com.google.dagger:hilt-android-compiler:$version"
         }
