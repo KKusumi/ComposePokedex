@@ -18,6 +18,7 @@ dependencies {
     implementation Dep.AndroidX.coreKtx
     implementation Dep.AndroidX.appCompat
     implementation Dep.AndroidX.activityCompose
+
     implementation Dep.Google.material
 
     // Compose
@@ -27,4 +28,7 @@ dependencies {
 
     // Hilt
     implementation Dep.AndroidX.Hilt.lifecycleViewModel
+
+    // Coil
+    implementation Dep.Google.Accompanist.coil
 }
