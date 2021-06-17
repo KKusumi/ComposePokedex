@@ -12,7 +12,10 @@ import com.example.composepokedex.home.HomeViewModel
 fun PokeDexNavHost(
     navController: NavHostController
 ) {
-    NavHost(navController = navController, startDestination = PokeDexDestination.HOME.name) {
+    NavHost(
+        navController = navController,
+        startDestination = PokeDexDestination.HOME.name
+    ) {
         composable(route = PokeDexDestination.HOME.name) {
             val homeViewModel = hiltViewModel<HomeViewModel>()
             HomeScreen(homeViewModel)

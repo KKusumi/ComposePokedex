@@ -1,5 +1,6 @@
 package com.example.composepokedex.home
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -33,7 +34,11 @@ class HomeViewModel @Inject constructor(
     private val _uiState: MutableLiveData<UiState> = MutableLiveData()
     val uiState get() = _uiState
 
-    fun fetchData() = viewModelScope.launch {
+    init {
+        fetchData()
+    }
+
+    private fun fetchData() = viewModelScope.launch {
         _uiState.value = UiState.Loading
         getPokemonListViewUseCase.execute().mapBoth(
             success = {
@@ -41,6 +46,7 @@ class HomeViewModel @Inject constructor(
                 _pokemonListView.value = it
             },
             failure = {
+                Log.d("fetchData failure: ", "it")
                 _uiState.value = UiState.Retry
             }
         )
