@@ -1,1 +1,8 @@
+import dependencies.Dep
+
 apply from: "${rootDir.absolutePath}/presentation/presentation_common_build.gradle"
+
+dependencies {
+    // KotlinResult
+    implementation Dep.Other.KotlinResult.kotlinResult
+}
