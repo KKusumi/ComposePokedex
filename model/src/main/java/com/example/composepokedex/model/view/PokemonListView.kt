@@ -1,4 +1,4 @@
-package com.example.composepokedex.model.model
+package com.example.composepokedex.model.view
 
 import com.example.composepokedex.model.response.PokemonListResponse
 

@@ -2,26 +2,24 @@ package com.example.composepokedex.repository
 
 import com.example.composepokedex.model.model.EmptyResponseBodyException
 import com.example.composepokedex.model.model.PokeDexException
-import com.example.composepokedex.model.view.PokemonListView
+import com.example.composepokedex.model.view.PokemonDetailView
 import com.example.composepokedex.remote.PokeApiClient
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.flatMap
-import javax.inject.Inject
 
-interface PokemonListViewRepository {
-    suspend fun fetchData(): Result<PokemonListView, PokeDexException>
+interface PokemonDetailViewRepository {
+    suspend fun fetchData(id: Int): Result<PokemonDetailView, PokeDexException>
 }
 
-internal class PokemonListViewRepositoryImpl @Inject constructor(
+internal class PokemonDetailViewRepositoryImpl(
     private val pokeApiClient: PokeApiClient
-) : ApiRepository(), PokemonListViewRepository {
-
-    override suspend fun fetchData(): Result<PokemonListView, PokeDexException> {
-        return execute { pokeApiClient.fetchPokemonList() }.flatMap {
+) : ApiRepository(), PokemonDetailViewRepository {
+    override suspend fun fetchData(id: Int): Result<PokemonDetailView, PokeDexException> {
+        return execute { pokeApiClient.fetchPokemonDetail(id) }.flatMap {
             if (it != null) {
-                Ok(PokemonListView.transform(it))
+                Ok(PokemonDetailView.transform(it))
             } else {
                 Err(EmptyResponseBodyException())
             }

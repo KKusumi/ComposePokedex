@@ -1,7 +1,7 @@
 package com.example.composepokedex.domain
 
 import com.example.composepokedex.model.model.PokeDexException
-import com.example.composepokedex.model.model.PokemonListView
+import com.example.composepokedex.model.view.PokemonListView
 import com.example.composepokedex.repository.PokemonListViewRepository
 import javax.inject.Inject
 import com.github.michaelbull.result.Result
