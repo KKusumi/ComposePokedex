@@ -1,6 +1,7 @@
 package com.example.composepokedex.home
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -16,12 +17,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.composepokedex.model.model.PokemonListView
+import com.example.composepokedex.model.view.PokemonListView
 import com.google.accompanist.coil.rememberCoilPainter
 
 @Composable
 fun HomeScreen(
-    homeViewModel: HomeViewModel = viewModel()
+    homeViewModel: HomeViewModel = viewModel(),
+    navigateToPokemonDetail: (Int) -> Unit
 ) {
     val pokemonListView by homeViewModel.pokemonListView.observeAsState(PokemonListView.getEmptyInstance())
     LazyColumn(
@@ -29,23 +31,23 @@ fun HomeScreen(
             .fillMaxWidth(),
     ) {
         items(items = pokemonListView.pokemons) { pokemon ->
-            HomeListItem(pokemon = pokemon)
+            HomeListItem(
+                pokemon = pokemon,
+                onClickItem = { navigateToPokemonDetail.invoke(pokemon.number) }
+            )
         }
     }
 }
 
-@Preview
-@Composable
-fun HomeScreenPreview() {
-    HomeScreen(homeViewModel = getFakeHomeViewModel())
-}
-
 @Composable
 fun HomeListItem(
-    pokemon: PokemonListView.Pokemon
+    pokemon: PokemonListView.Pokemon,
+    onClickItem: () -> Unit
 ) {
     Row(
-        modifier = Modifier.padding(16.dp),
+        modifier = Modifier
+            .clickable(onClick = onClickItem)
+            .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Image(
@@ -86,6 +88,7 @@ fun HomeListItemPreview() {
         pokemon = PokemonListView.Pokemon(
             name = "bulbasour",
             url = "https://pokeapi.co/api/v2/pokemon/1/"
-        )
+        ),
+        onClickItem = {}
     )
 }

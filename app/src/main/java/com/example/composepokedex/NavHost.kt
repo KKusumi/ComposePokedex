@@ -7,6 +7,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.composepokedex.home.HomeScreen
 import com.example.composepokedex.home.HomeViewModel
+import com.example.composepokedex.pokemon_detail.PokemonDetailScreen
+import com.example.composepokedex.pokemon_detail.PokemonDetailViewModel
 
 @Composable
 fun PokeDexNavHost(
@@ -18,7 +20,22 @@ fun PokeDexNavHost(
     ) {
         composable(route = PokeDexDestination.HOME.name) {
             val homeViewModel = hiltViewModel<HomeViewModel>()
-            HomeScreen(homeViewModel)
+            HomeScreen(
+                homeViewModel = homeViewModel,
+                navigateToPokemonDetail = { number ->
+                    navController.navigate("${PokeDexDestination.POKEMON_DETAIL}/number")
+                }
+            )
+        }
+
+        composable(route = "${PokeDexDestination.POKEMON_DETAIL}/{number}") {
+            it.arguments?.getInt("number")?.let { number ->
+                val pokemonDetailViewModel = hiltViewModel<PokemonDetailViewModel>()
+                PokemonDetailScreen(
+                    pokemonDetailViewModel = pokemonDetailViewModel,
+                    number = number
+                )
+            }
         }
     }
 }

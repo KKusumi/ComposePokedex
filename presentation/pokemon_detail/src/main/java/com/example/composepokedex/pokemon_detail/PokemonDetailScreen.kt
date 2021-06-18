@@ -6,7 +6,10 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
 fun PokemonDetailScreen(
-    pokemonDetailViewModel: PokemonDetailViewModel = viewModel()
+    pokemonDetailViewModel: PokemonDetailViewModel = viewModel(),
+    number: Int
 ) {
+    pokemonDetailViewModel.fetchData(number)
+
     Text("Hello World!")
 }
