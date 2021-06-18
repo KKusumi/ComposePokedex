@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.composepokedex.domain.GetPokemonListViewUseCase
 import com.example.composepokedex.model.model.PokeDexException
-import com.example.composepokedex.model.model.PokemonListView
+import com.example.composepokedex.model.view.PokemonListView
 import com.example.composepokedex.model.model.UiState
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.mapBoth
