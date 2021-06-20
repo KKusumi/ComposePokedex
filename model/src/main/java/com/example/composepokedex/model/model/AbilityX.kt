@@ -12,5 +12,8 @@ data class AbilityX(
                 name = abilityXResponse.name
             )
         }
+        fun getEmpty(): AbilityX {
+            return AbilityX(name = "")
+        }
     }
 }

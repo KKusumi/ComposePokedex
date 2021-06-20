@@ -46,7 +46,7 @@ class HomeViewModel @Inject constructor(
                 _pokemonListView.value = it
             },
             failure = {
-                Log.d("fetchData failure: ", "it")
+                Log.d("fetchData failure: ", "${it.message}")
                 _uiState.value = UiState.Retry
             }
         )

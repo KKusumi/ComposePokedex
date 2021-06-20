@@ -5,7 +5,7 @@ data class PokemonDetailResponse(
     val base_experience: Int,
     val forms: List<FormResponse>,
     val game_indices: List<GameIndiceResponse>,
-    val height: Int,
+    val height: Float,
     val held_items: List<HeldItemResponse>,
     val id: Int,
     val is_default: Boolean,
@@ -17,5 +17,5 @@ data class PokemonDetailResponse(
     val sprites: SpritesResponse,
     val stats: List<StatResponse>,
     val types: List<TypeResponse>,
-    val weight: Int
+    val weight: Float
 )

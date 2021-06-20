@@ -1,5 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="../../../../../layout/compose-model-1623909202170.xml" value="1.0" />
+        <entry key="../../../../../layout/compose-model-1623909206563.xml" value="0.33" />
+        <entry key="../../../../../layout/compose-model-1623912802946.xml" value="0.22" />
+        <entry key="../../../../../layout/compose-model-1623915206902.xml" value="1.0" />
+        <entry key="../../../../../layout/compose-model-1623916320703.xml" value="0.1" />
+        <entry key="../../../../../layout/compose-model-1623916840949.xml" value="0.1" />
+        <entry key="../../../../../layout/compose-model-1623996720529.xml" value="0.30925925925925923" />
+        <entry key="../../../../../layout/compose-model-1623998259628.xml" value="0.1858108108108108" />
+        <entry key="../../../../../layout/compose-model-1623998675414.xml" value="0.18888888888888888" />
+        <entry key="../../../../../layout/compose-model-1624002424392.xml" value="0.1" />
+        <entry key="../../../../../layout/compose-model-1624002541610.xml" value="0.3055555555555556" />
+        <entry key="../../../../../layout/compose-model-1624002615820.xml" value="0.1" />
+        <entry key="../../../../../layout/compose-model-1624160363590.xml" value="0.1966598513820632" />
+        <entry key="../../../../../layout/compose-model-1624167711408.xml" value="0.11666666666666667" />
+        <entry key="../../../../../layout/compose-model-1624168345707.xml" value="0.25" />
+        <entry key="../../../../../layout/compose-model-1624168822768.xml" value="0.33" />
+      </map>
+    </option>
+  </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Embedded JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />

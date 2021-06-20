@@ -1,5 +1,6 @@
 package com.example.composepokedex
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -23,13 +24,13 @@ fun PokeDexNavHost(
             HomeScreen(
                 homeViewModel = homeViewModel,
                 navigateToPokemonDetail = { number ->
-                    navController.navigate("${PokeDexDestination.POKEMON_DETAIL}/number")
+                    navController.navigate("${PokeDexDestination.POKEMON_DETAIL}/$number")
                 }
             )
         }
 
         composable(route = "${PokeDexDestination.POKEMON_DETAIL}/{number}") {
-            it.arguments?.getInt("number")?.let { number ->
+            it.arguments?.getString("number")?.let { number ->
                 val pokemonDetailViewModel = hiltViewModel<PokemonDetailViewModel>()
                 PokemonDetailScreen(
                     pokemonDetailViewModel = pokemonDetailViewModel,

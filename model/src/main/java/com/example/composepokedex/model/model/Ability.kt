@@ -16,5 +16,12 @@ data class Ability(
                 slot = abilityResponse.slot
             )
         }
+        fun getEmpty(): Ability {
+            return Ability(
+                ability = AbilityX.getEmpty(),
+                isHidden = false,
+                slot = 0
+            )
+        }
     }
 }

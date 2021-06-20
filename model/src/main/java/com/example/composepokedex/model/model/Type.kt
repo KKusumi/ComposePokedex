@@ -14,5 +14,11 @@ data class Type(
                 type = TypeX.transform(typeResponse.type)
             )
         }
+        fun getEmpty(): Type {
+            return Type(
+                slot = 0,
+                type = TypeX.getEmpty()
+            )
+        }
     }
 }

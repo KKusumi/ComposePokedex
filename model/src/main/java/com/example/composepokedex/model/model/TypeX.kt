@@ -12,5 +12,8 @@ data class TypeX(
                 name = typeXResponse.name ?: ""
             )
         }
+        fun getEmpty(): TypeX {
+            return TypeX(name = "")
+        }
     }
 }

@@ -5,4 +5,7 @@ apply from: "${rootDir.absolutePath}/presentation/presentation_common_build.grad
 dependencies {
     // KotlinResult
     implementation Dep.Other.KotlinResult.kotlinResult
+
+    // ConstraintLayout
+    implementation Dep.AndroidX.constraintLayoutCompose
 }
