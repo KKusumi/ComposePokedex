@@ -8,6 +8,7 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
 import com.example.composepokedex.ui.theme.ComposePokeDexTheme
@@ -29,7 +30,8 @@ fun ComposePokeDexApp() {
     ComposePokeDexTheme {
         val navController = rememberNavController()
         Scaffold(
-            topBar = { AppBar() }
+            topBar = { AppBar() },
+            backgroundColor = Color(0xfff5f5f5)
         ) {
             PokeDexNavHost(navController = navController)
         }

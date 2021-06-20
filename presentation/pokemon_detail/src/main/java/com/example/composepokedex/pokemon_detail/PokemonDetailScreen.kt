@@ -1,21 +1,19 @@
 package com.example.composepokedex.pokemon_detail
 
-import androidx.compose.foundation.Image
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Card
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -26,6 +24,8 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.composepokedex.model.view.PokemonDetailView
 import com.google.accompanist.coil.rememberCoilPainter
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 
 @Composable
 fun PokemonDetailScreen(
@@ -51,25 +51,29 @@ fun PokemonDetailScreen(
         PokemonDetailView.getEmptyInstance()
     )
 
-    val scrollState = rememberScrollState()
-    Column(
+    ConstraintLayout(
         modifier = Modifier
             .fillMaxWidth()
             .fillMaxHeight()
-            .verticalScroll(scrollState)
     ) {
-        ConstraintLayout(
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            val (image, numberText, nameText) = createRefs()
+        val (container, bottomBox) = createRefs()
+        val verticalScrollState = rememberScrollState()
 
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier
+                .fillMaxWidth()
+                .verticalScroll(verticalScrollState)
+                .constrainAs(container) {
+                    top.linkTo(parent.top)
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                    bottom.linkTo(parent.bottom)
+                }
+                .padding(bottom = 56.dp)
+        ) {
             Image(
                 modifier = Modifier
-                    .constrainAs(image) {
-                        top.linkTo(parent.top)
-                        start.linkTo(parent.start)
-                        end.linkTo(parent.end)
-                    }
                     .padding(top = 48.dp, start = 48.dp, end = 48.dp)
                     .aspectRatio(1.0f),
                 painter = rememberCoilPainter(
@@ -78,32 +82,19 @@ fun PokemonDetailScreen(
                 contentDescription = pokemonDetailView.name,
             )
             Text(
-                text = "No.${pokemonDetailView.id}",
-                fontSize = 16.sp,
-                lineHeight = 13.sp,
-                modifier = Modifier
-                    .constrainAs(numberText) {
-                        top.linkTo(anchor = image.bottom, margin = 8.dp)
-                        start.linkTo(anchor = parent.start, margin = 16.dp)
-                    }
+                text = "No.${pokemonDetailView.id.toString().padStart(3, '0')}",
+                fontSize = 17.sp,
+                lineHeight = 22.sp,
+                modifier = Modifier.padding(top = 8.dp)
             )
             Text(
-                text = pokemonDetailView.name,
+                text = pokemonDetailView.name.replaceFirstChar { it.uppercase() },
                 fontSize = 30.sp,
                 fontWeight = FontWeight.Bold,
-                lineHeight = 22.sp,
-                modifier = Modifier
-                    .constrainAs(nameText) {
-                        top.linkTo(anchor = numberText.bottom, margin = 8.dp)
-                        start.linkTo(anchor = parent.start, margin = 16.dp)
-                    }
+                lineHeight = 30.sp,
+                modifier = Modifier.padding(top = 8.dp, bottom = 16.dp)
             )
-        }
 
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.padding(top = 24.dp, start = 16.dp, end = 16.dp, bottom = 24.dp)
-        ) {
             val typeText = if (pokemonDetailView.type2 != null) {
                 "${pokemonDetailView.type1.type.name}・${pokemonDetailView.type2?.type?.name}"
             } else {
@@ -128,8 +119,32 @@ fun PokemonDetailScreen(
             val hiddenAbility = pokemonDetailView.hiddenAbility?.ability?.name ?: ""
             StatusBarCard(label = "HiddenAbility", value = hiddenAbility)
         }
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.End,
+            modifier = Modifier
+                .fillMaxWidth()// いれないとだめ
+                .height(48.dp)
+                .constrainAs(bottomBox) {
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                    bottom.linkTo(parent.bottom)
+                }
+                .background(Color(0xfff5f5f5))
+                .padding(end = 40.dp)
+        ) {
+            val coroutineScope = rememberCoroutineScope()
+            Image(
+                painter = painterResource(id = R.drawable.drawable_monster_ball),
+                contentDescription = "ic_monster_ball",
+                modifier = Modifier.clickable {
+                    coroutineScope.launch {
+                        // ボトムシート開閉
+                    }
+                }
+            )
+        }
     }
-
 }
 
 @Composable
@@ -137,35 +152,41 @@ fun StatusBarCard(
     label: String,
     value: String
 ) {
-    Card(
+    Surface(
         modifier = Modifier
             .fillMaxWidth()
+            .padding(start = 40.dp, end = 40.dp)
             .clip(RoundedCornerShape(100))
+            .background(Color(0xffffffff))
     ) {
-        ConstraintLayout(
-            modifier = Modifier.padding(16.dp)
+        Card(
+            modifier = Modifier.fillMaxWidth()
         ) {
-            val (labelText, valueText) = createRefs()
-            Text(
-                text = label,
-                fontSize = 15.sp,
-                lineHeight = 20.sp,
-                modifier = Modifier.constrainAs(labelText) {
-                    top.linkTo(anchor = parent.top)
-                    bottom.linkTo(anchor = parent.bottom)
-                    start.linkTo(anchor = parent.start)
-                }
-            )
-            Text(
-                text = value,
-                fontSize = 15.sp,
-                lineHeight = 20.sp,
-                modifier = Modifier.constrainAs(valueText) {
-                    top.linkTo(anchor = parent.top)
-                    bottom.linkTo(anchor = parent.bottom)
-                    end.linkTo(anchor = parent.end)
-                }
-            )
+            ConstraintLayout(
+                modifier = Modifier.padding(top = 20.dp, bottom = 20.dp, start = 24.dp, end = 24.dp)
+            ) {
+                val (labelText, valueText) = createRefs()
+                Text(
+                    text = label,
+                    fontSize = 17.sp,
+                    lineHeight = 22.sp,
+                    modifier = Modifier.constrainAs(labelText) {
+                        top.linkTo(anchor = parent.top)
+                        bottom.linkTo(anchor = parent.bottom)
+                        start.linkTo(anchor = parent.start)
+                    }
+                )
+                Text(
+                    text = value,
+                    fontSize = 17.sp,
+                    lineHeight = 22.sp,
+                    modifier = Modifier.constrainAs(valueText) {
+                        top.linkTo(anchor = parent.top)
+                        bottom.linkTo(anchor = parent.bottom)
+                        end.linkTo(anchor = parent.end)
+                    }
+                )
+            }
         }
     }
 }
