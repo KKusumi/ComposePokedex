@@ -17,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.composepokedex.model.model.Pokemon
 import com.example.composepokedex.model.view.PokemonListView
 import com.google.accompanist.coil.rememberCoilPainter
 
@@ -41,7 +42,7 @@ fun HomeScreen(
 
 @Composable
 fun HomeListItem(
-    pokemon: PokemonListView.Pokemon,
+    pokemon: Pokemon,
     onClickItem: () -> Unit
 ) {
     Row(
@@ -85,7 +86,7 @@ fun HomeListItem(
 @Composable
 fun HomeListItemPreview() {
     HomeListItem(
-        pokemon = PokemonListView.Pokemon(
+        pokemon = Pokemon(
             name = "bulbasour",
             url = "https://pokeapi.co/api/v2/pokemon/1/"
         ),
