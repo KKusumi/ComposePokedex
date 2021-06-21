@@ -1,11 +1,9 @@
 package com.example.composepokedex.domain.di
 
-import com.example.composepokedex.domain.GetPokemonDetailViewUseCase
-import com.example.composepokedex.domain.GetPokemonDetailViewUseCaseImpl
-import com.example.composepokedex.domain.GetPokemonListViewUseCase
-import com.example.composepokedex.domain.GetPokemonListViewUseCaseImpl
+import com.example.composepokedex.domain.*
 import com.example.composepokedex.repository.PokemonDetailViewRepository
 import com.example.composepokedex.repository.PokemonListViewRepository
+import com.example.composepokedex.repository.PokemonSpeciesRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -30,5 +28,13 @@ object DomainModule {
         pokemonDetailViewRepository: PokemonDetailViewRepository
     ): GetPokemonDetailViewUseCase {
         return GetPokemonDetailViewUseCaseImpl(pokemonDetailViewRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetPokemonSpeciesUseCase(
+        pokemonSpeciesRepository: PokemonSpeciesRepository
+    ): GetPokemonSpeciesUseCase {
+        return GetPokemonSpeciesUseCaseImpl(pokemonSpeciesRepository)
     }
 }
