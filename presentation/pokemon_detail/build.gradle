@@ -8,4 +8,8 @@ dependencies {
 
     // ConstraintLayout
     implementation Dep.AndroidX.constraintLayoutCompose
+
+    // Pager
+    implementation Dep.Google.Accompanist.pager
+    implementation Dep.Google.Accompanist.pagerIndicators
 }

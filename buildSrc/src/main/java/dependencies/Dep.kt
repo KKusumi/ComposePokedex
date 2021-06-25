@@ -46,7 +46,10 @@ object Dep {
         const val gson = "com.google.code.gson:gson:2.8.6"
 
         object Accompanist {
-            const val coil = "com.google.accompanist:accompanist-coil:0.12.0"
+            const val version = "0.12.0"
+            const val coil = "com.google.accompanist:accompanist-coil:$version"
+            const val pager = "com.google.accompanist:accompanist-pager:$version"
+            const val pagerIndicators = "com.google.accompanist:accompanist-pager-indicators:$version"
         }
 
         object Hilt {

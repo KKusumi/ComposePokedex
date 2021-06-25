@@ -13,7 +13,13 @@ data class PokemonDetailView(
     val type2: Type?,
     val ability1: Ability,
     val ability2: Ability?,
-    val hiddenAbility: Ability?
+    val hiddenAbility: Ability?,
+    val hp: Int,
+    val attack: Int,
+    val defense: Int,
+    val special_attack: Int,
+    val special_defense: Int,
+    val speed: Int
 ) {
 
     companion object {
@@ -29,7 +35,13 @@ data class PokemonDetailView(
                 ability2 = pokemonDetailResponse.abilities.getOrNull(1)
                     ?.let { Ability.transform(it) },
                 hiddenAbility = pokemonDetailResponse.abilities.find { it.is_hidden }
-                    ?.let { Ability.transform(it) }
+                    ?.let { Ability.transform(it) },
+                hp = pokemonDetailResponse.hp?.base_stat ?: 0,
+                attack = pokemonDetailResponse.attack?.base_stat ?: 0,
+                defense = pokemonDetailResponse.defense?.base_stat ?: 0,
+                special_attack = pokemonDetailResponse.specialAttack?.base_stat ?: 0,
+                special_defense = pokemonDetailResponse.specialDefense?.base_stat ?: 0,
+                speed = pokemonDetailResponse.speed?.base_stat ?: 0
             )
         }
 
@@ -43,7 +55,13 @@ data class PokemonDetailView(
                 type2 = Type.getEmpty(),
                 ability1 = Ability.getEmpty(),
                 ability2 = Ability.getEmpty(),
-                hiddenAbility = Ability.getEmpty()
+                hiddenAbility = Ability.getEmpty(),
+                hp = 0,
+                attack = 0,
+                defense = 0,
+                special_attack = 0,
+                special_defense = 0,
+                speed = 0
             )
         }
     }
