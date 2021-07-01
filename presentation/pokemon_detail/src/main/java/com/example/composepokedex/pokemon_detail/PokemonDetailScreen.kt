@@ -1,5 +1,7 @@
 package com.example.composepokedex.pokemon_detail
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -10,6 +12,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -20,6 +23,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.composepokedex.model.model.Type
 import com.example.composepokedex.model.view.PokemonDetailView
 import com.google.accompanist.coil.rememberCoilPainter
 import com.google.accompanist.pager.ExperimentalPagerApi
@@ -28,6 +32,7 @@ import com.google.accompanist.pager.HorizontalPagerIndicator
 import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.launch
 
+@RequiresApi(Build.VERSION_CODES.M)
 @ExperimentalPagerApi
 @Composable
 fun PokemonDetailScreen(
@@ -58,8 +63,21 @@ fun PokemonDetailScreen(
             .fillMaxWidth()
             .fillMaxHeight()
     ) {
-        val (container, bottomBox) = createRefs()
+        val (container, halfCircle, bottomBox) = createRefs()
         val verticalScrollState = rememberScrollState()
+
+        Image(
+            painter = painterResource(id = getTypeHalfCircle(pokemonDetailView.type1)),
+            contentScale = ContentScale.FillBounds,
+            contentDescription = "img_type_half_circle",
+            modifier = Modifier
+                .fillMaxWidth()
+                .constrainAs(halfCircle) {
+                    top.linkTo(parent.top)
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                }
+        )
 
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -161,9 +179,9 @@ fun PokemonDetailInfoPage1(
         modifier = Modifier.fillMaxWidth()
     ) {
         val typeText = if (pokemonDetailView.type2 != null) {
-            "${pokemonDetailView.type1.type.name}・${pokemonDetailView.type2?.type?.name}"
+            "${pokemonDetailView.type1.name}・${pokemonDetailView.type2?.name}"
         } else {
-            pokemonDetailView.type1.type.name
+            pokemonDetailView.type1.name
         }
         StatusBarCard(label = "Type", value = typeText)
         Spacer(modifier = Modifier.height(8.dp))
@@ -252,6 +270,7 @@ fun StatusBarCard(
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.M)
 @ExperimentalPagerApi
 @Preview
 @Composable
@@ -260,4 +279,25 @@ fun PokemonDetailScreenPreview() {
         pokemonDetailViewModel = getFakePokemonDetailViewModel(),
         number = "0"
     )
+}
+
+private fun getTypeHalfCircle(type: Type): Int = when (type) {
+    is Type.Bug -> R.drawable.drawable_bug_color_half_circle
+    is Type.Dark -> R.drawable.drawable_dark_color_half_circle
+    is Type.Dragon -> R.drawable.drawable_dragon_color_half_circle
+    is Type.Electric -> R.drawable.drawable_electric_color_half_circle
+    is Type.Fairy -> R.drawable.drawable_fairy_color_half_circle
+    is Type.Fighting -> R.drawable.drawable_fighting_color_half_circle
+    is Type.Fire -> R.drawable.drawable_fire_color_half_circle
+    is Type.Flying -> R.drawable.drawable_flying_color_half_circle
+    is Type.Ghost -> R.drawable.drawable_ghost_color_half_circle
+    is Type.Grass -> R.drawable.drawable_grass_color_half_circle
+    is Type.Ground -> R.drawable.drawable_ground_color_half_circle
+    is Type.Ice -> R.drawable.drawable_ice_color_half_circle
+    is Type.Normal -> R.drawable.drawable_normal_color_half_circle
+    is Type.Poison -> R.drawable.drawable_poison_color_half_circle
+    is Type.Psychic -> R.drawable.drawable_psychic_color_half_circle
+    is Type.Rock -> R.drawable.drawable_rock_color_half_circle
+    is Type.Steel -> R.drawable.drawable_steel_color_half_circle
+    is Type.Water -> R.drawable.drawable_water_color_half_circle
 }

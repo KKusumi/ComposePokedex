@@ -30,20 +30,9 @@ fun ComposePokeDexApp() {
     ComposePokeDexTheme {
         val navController = rememberNavController()
         Scaffold(
-            topBar = { AppBar() },
             backgroundColor = Color(0xfff5f5f5)
         ) {
             PokeDexNavHost(navController = navController)
         }
     }
-}
-
-@Composable
-private fun AppBar() {
-    TopAppBar(
-        title = {
-            Text(text = "ComposePokeDex")
-        },
-        backgroundColor = MaterialTheme.colors.primary
-    )
 }

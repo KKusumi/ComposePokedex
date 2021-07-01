@@ -6,12 +6,16 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Divider
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -26,18 +30,47 @@ fun HomeScreen(
     homeViewModel: HomeViewModel = viewModel(),
     navigateToPokemonDetail: (Int) -> Unit
 ) {
+
     val pokemonListView by homeViewModel.pokemonListView.observeAsState(PokemonListView.getEmptyInstance())
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxWidth(),
+
+    Scaffold(
+        topBar = { AppBar() },
+        backgroundColor = Color(0xfff5f5f5)
     ) {
-        items(items = pokemonListView.pokemons) { pokemon ->
-            HomeListItem(
-                pokemon = pokemon,
-                onClickItem = { navigateToPokemonDetail.invoke(pokemon.number) }
-            )
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxWidth(),
+        ) {
+            items(items = pokemonListView.pokemons) { pokemon ->
+                HomeListItem(
+                    pokemon = pokemon,
+                    onClickItem = { navigateToPokemonDetail.invoke(pokemon.number) }
+                )
+            }
         }
     }
+}
+
+@Preview
+@Composable
+private fun AppBar() {
+    TopAppBar(
+        title = {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.img_logo),
+                    contentDescription = "logo",
+                    modifier = Modifier
+                        .width(162.dp)
+                        .height(32.dp)
+                )
+            }
+        },
+        backgroundColor = Color.White
+    )
 }
 
 @Composable
