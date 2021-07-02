@@ -32,12 +32,12 @@ import com.google.accompanist.pager.HorizontalPagerIndicator
 import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.launch
 
-@RequiresApi(Build.VERSION_CODES.M)
-@ExperimentalPagerApi
+@OptIn(ExperimentalPagerApi::class)// OptIn使うとAnnotation付けなきゃいけないのがここだけになる
 @Composable
 fun PokemonDetailScreen(
     pokemonDetailViewModel: PokemonDetailViewModel = viewModel(),
-    number: String
+    number: String,
+    onClickBack: () -> Unit
 ) {
     val lifecycleObserver = remember(pokemonDetailViewModel) {
         LifecycleEventObserver { _, event ->
@@ -63,7 +63,7 @@ fun PokemonDetailScreen(
             .fillMaxWidth()
             .fillMaxHeight()
     ) {
-        val (container, halfCircle, bottomBox) = createRefs()
+        val (container, halfCircle, bottomBox, backArrow) = createRefs()
         val verticalScrollState = rememberScrollState()
 
         Image(
@@ -168,6 +168,20 @@ fun PokemonDetailScreen(
                 }
             )
         }
+
+        Image(
+            painter = painterResource(id = R.drawable.drawable_ic_back_arrow),
+            contentDescription = "ic_back_arrow",
+            modifier = Modifier
+                .constrainAs(backArrow) {
+                    top.linkTo(parent.top)
+                    start.linkTo(parent.start)
+                }
+                .padding(top = 24.dp, start = 24.dp)
+                .clickable {
+                    onClickBack.invoke()
+                }
+        )
     }
 }
 
@@ -277,7 +291,8 @@ fun StatusBarCard(
 fun PokemonDetailScreenPreview() {
     PokemonDetailScreen(
         pokemonDetailViewModel = getFakePokemonDetailViewModel(),
-        number = "0"
+        number = "0",
+        onClickBack = {}
     )
 }
 

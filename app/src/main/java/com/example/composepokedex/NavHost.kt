@@ -1,6 +1,5 @@
 package com.example.composepokedex
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -34,7 +33,10 @@ fun PokeDexNavHost(
                 val pokemonDetailViewModel = hiltViewModel<PokemonDetailViewModel>()
                 PokemonDetailScreen(
                     pokemonDetailViewModel = pokemonDetailViewModel,
-                    number = number
+                    number = number,
+                    onClickBack = {
+                        navController.popBackStack()
+                    }
                 )
             }
         }
