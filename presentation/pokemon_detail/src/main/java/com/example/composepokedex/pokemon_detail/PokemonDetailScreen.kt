@@ -2,13 +2,19 @@ package com.example.composepokedex.pokemon_detail
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.compose.foundation.*
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -30,7 +36,6 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.HorizontalPagerIndicator
 import com.google.accompanist.pager.rememberPagerState
-import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalPagerApi::class)// OptIn使うとAnnotation付けなきゃいけないのがここだけになる
 @Composable
@@ -63,9 +68,10 @@ fun PokemonDetailScreen(
             .fillMaxWidth()
             .fillMaxHeight()
     ) {
-        val (container, halfCircle, bottomBox, backArrow) = createRefs()
+        val (container, halfCircle, backArrow, evolution) = createRefs()
         val verticalScrollState = rememberScrollState()
 
+        // Half Circle
         Image(
             painter = painterResource(id = getTypeHalfCircle(pokemonDetailView.type1)),
             contentScale = ContentScale.FillBounds,
@@ -90,8 +96,9 @@ fun PokemonDetailScreen(
                     end.linkTo(parent.end)
                     bottom.linkTo(parent.bottom)
                 }
-                .padding(bottom = 56.dp)
+                .padding(bottom = 16.dp)
         ) {
+            // Main Image
             Image(
                 modifier = Modifier
                     .padding(top = 48.dp, start = 48.dp, end = 48.dp)
@@ -101,12 +108,16 @@ fun PokemonDetailScreen(
                 ),
                 contentDescription = pokemonDetailView.name,
             )
+
+            // Number
             Text(
                 text = "No.${pokemonDetailView.id.toString().padStart(3, '0')}",
                 fontSize = 17.sp,
                 lineHeight = 22.sp,
                 modifier = Modifier.padding(top = 8.dp)
             )
+
+            // Name
             Text(
                 text = pokemonDetailView.name.replaceFirstChar { it.uppercase() },
                 fontSize = 30.sp,
@@ -143,43 +154,32 @@ fun PokemonDetailScreen(
             }
 
         }
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.End,
-            modifier = Modifier
-                .fillMaxWidth()// いれないとだめ
-                .height(48.dp)
-                .constrainAs(bottomBox) {
-                    start.linkTo(parent.start)
-                    end.linkTo(parent.end)
-                    bottom.linkTo(parent.bottom)
-                }
-                .background(Color(0xfff5f5f5))
-                .padding(end = 40.dp)
-        ) {
-            val coroutineScope = rememberCoroutineScope()
-            Image(
-                painter = painterResource(id = R.drawable.drawable_monster_ball),
-                contentDescription = "ic_monster_ball",
-                modifier = Modifier.clickable {
-                    coroutineScope.launch {
-                        // ボトムシート開閉
-                    }
-                }
-            )
-        }
 
+        // Back Arrow
         Image(
             painter = painterResource(id = R.drawable.drawable_ic_back_arrow),
             contentDescription = "ic_back_arrow",
             modifier = Modifier
                 .constrainAs(backArrow) {
-                    top.linkTo(parent.top)
-                    start.linkTo(parent.start)
+                    top.linkTo(anchor = parent.top, margin = 24.dp)
+                    start.linkTo(anchor = parent.start, margin = 24.dp)
                 }
-                .padding(top = 24.dp, start = 24.dp)
                 .clickable {
                     onClickBack.invoke()
+                }
+        )
+
+        // Evolution
+        Image(
+            painter = painterResource(id = R.drawable.drawable_ic_evolution),
+            contentDescription = "ic_evolution",
+            modifier = Modifier
+                .constrainAs(evolution) {
+                    top.linkTo(anchor = parent.top, margin = 24.dp)
+                    end.linkTo(anchor = parent.end, margin = 24.dp)
+                }
+                .clickable {
+                    // 進化
                 }
         )
     }
