@@ -1,5 +1,6 @@
 package com.example.composepokedex.remote
 
+import com.example.composepokedex.model.response.EvolutionChainResponse
 import com.example.composepokedex.model.response.PokemonDetailResponse
 import com.example.composepokedex.model.response.PokemonListResponse
 import com.example.composepokedex.model.response.PokemonSpeciesResponse
@@ -20,4 +21,7 @@ interface PokeApi {
 
     @GET("pokemon-species/{id}")
     suspend fun pokemonSpecies(@Path("id") id: Int): Response<PokemonSpeciesResponse>
+
+    @GET("evolution-chain/{id}")
+    suspend fun evolutionChain(@Path("id") id: Int): Response<EvolutionChainResponse>
 }

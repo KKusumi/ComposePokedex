@@ -2,8 +2,6 @@ package com.example.composepokedex.repository.di
 
 import com.example.composepokedex.remote.PokeApiClient
 import com.example.composepokedex.repository.*
-import com.example.composepokedex.repository.PokemonDetailViewRepositoryImpl
-import com.example.composepokedex.repository.PokemonListViewRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -36,5 +34,13 @@ object RepositoryModule {
         pokeApiClient: PokeApiClient
     ): PokemonSpeciesRepository {
         return PokemonSpeciesRepositoryImpl(pokeApiClient)
+    }
+
+    @Provides
+    @Singleton
+    fun provideEvolutionChainRepository(
+        pokeApiClient: PokeApiClient
+    ): EvolutionChainRepository {
+        return EvolutionChainRepositoryImpl(pokeApiClient)
     }
 }

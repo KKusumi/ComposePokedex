@@ -1,17 +1,22 @@
 package com.example.composepokedex.pokemon_detail
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.composepokedex.domain.GetEvolutionChainUseCase
 import com.example.composepokedex.domain.GetPokemonDetailViewUseCase
+import com.example.composepokedex.domain.GetPokemonSpeciesUseCase
+import com.example.composepokedex.model.model.EvolutionChain
 import com.example.composepokedex.model.model.PokeDexException
+import com.example.composepokedex.model.model.PokemonSpecies
 import com.example.composepokedex.model.model.UiState
 import com.example.composepokedex.model.view.PokemonDetailView
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.mapBoth
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 fun getFakePokemonDetailViewModel(): PokemonDetailViewModel {
@@ -20,12 +25,28 @@ fun getFakePokemonDetailViewModel(): PokemonDetailViewModel {
             TODO("Not yet implemented")
         }
     }
-    return PokemonDetailViewModel(getPokemonDetailViewUseCase = getPokemonDetailViewUseCase)
+    val getPokemonSpeciesUseCase = object : GetPokemonSpeciesUseCase {
+        override suspend fun execute(id: Int): Result<PokemonSpecies, PokeDexException> {
+            TODO("Not yet implemented")
+        }
+    }
+    val getEvolutionChainUseCase = object : GetEvolutionChainUseCase {
+        override suspend fun execute(id: Int): Result<EvolutionChain, PokeDexException> {
+            TODO("Not yet implemented")
+        }
+    }
+    return PokemonDetailViewModel(
+        getPokemonDetailViewUseCase = getPokemonDetailViewUseCase,
+        getPokemonSpeciesUseCase = getPokemonSpeciesUseCase,
+        getEvolutionChainUseCase = getEvolutionChainUseCase
+    )
 }
 
 @HiltViewModel
 class PokemonDetailViewModel @Inject constructor(
-    private val getPokemonDetailViewUseCase: GetPokemonDetailViewUseCase
+    private val getPokemonDetailViewUseCase: GetPokemonDetailViewUseCase,
+    private val getPokemonSpeciesUseCase: GetPokemonSpeciesUseCase,
+    private val getEvolutionChainUseCase: GetEvolutionChainUseCase
 ) : ViewModel() {
 
     private val _pokemonDetailView: MutableLiveData<PokemonDetailView> = MutableLiveData()
@@ -34,18 +55,44 @@ class PokemonDetailViewModel @Inject constructor(
     private val _uiState: MutableLiveData<UiState> = MutableLiveData()
     val uiState get() = _uiState
 
-    fun fetchData(number: Int) = viewModelScope.launch {
-        Log.d("fetchData number: ", "$number")
+    var evolutionChain: EvolutionChain? = null
+
+    fun fetchPokemonDetail(number: Int) = viewModelScope.launch {
+        Timber.d("fetchPokemonDetail number: $number")
         _uiState.value = UiState.Loading
         getPokemonDetailViewUseCase.execute(number).mapBoth(
             success = {
-                Log.d("fetchData success: ", "$it")
+                Timber.d("fetchPokemonDetail success: $it")
                 _uiState.value = UiState.Loaded
                 _pokemonDetailView.value = it
             },
             failure = {
-                Log.d("fetchData failure: ", "${it.message}")
+                Timber.e("fetchPokemonDetail failure: $it")
                 _uiState.value = UiState.Retry
+            }
+        )
+    }
+
+    fun fetchEvolutionData(number: Int) = viewModelScope.launch {
+        getPokemonSpeciesUseCase.execute(number).mapBoth(
+            success = {
+                Timber.d("fetchPokemonSpecies success: $it")
+                fetchEvolutionChain(it.evolutionChainId)
+            },
+            failure = {
+                Timber.e("fetchPokemonSpecies failure: $it")
+            }
+        )
+    }
+
+    private fun fetchEvolutionChain(id: Int) = viewModelScope.launch {
+        getEvolutionChainUseCase.execute(id).mapBoth(
+            success = {
+                Timber.d("fetchEvolutionChain success: $it")
+                evolutionChain = it
+            },
+            failure = {
+                Timber.e("fetchEvolutionChain failure: $it")
             }
         )
     }

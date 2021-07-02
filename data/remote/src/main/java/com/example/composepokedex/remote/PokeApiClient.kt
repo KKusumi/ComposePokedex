@@ -1,7 +1,9 @@
 package com.example.composepokedex.remote
 
+import com.example.composepokedex.model.model.EvolutionChain
 import com.example.composepokedex.model.model.PokeDexApiException
 import com.example.composepokedex.model.model.PokeDexApiResponseException
+import com.example.composepokedex.model.response.EvolutionChainResponse
 import com.example.composepokedex.model.response.PokemonDetailResponse
 import com.example.composepokedex.model.response.PokemonListResponse
 import com.example.composepokedex.model.response.PokemonSpeciesResponse
@@ -22,6 +24,8 @@ interface PokeApiClient {
     suspend fun fetchPokemonDetail(id: Int): Result<PokemonDetailResponse?, PokeDexApiException>
 
     suspend fun fetchPokemonSpecies(id: Int): Result<PokemonSpeciesResponse?, PokeDexApiException>
+
+    suspend fun fetchEvolutionChain(id: Int): Result<EvolutionChainResponse?, PokeDexApiException>
 }
 
 internal class PokeApiClientImpl @Inject constructor(
@@ -38,6 +42,10 @@ internal class PokeApiClientImpl @Inject constructor(
 
     override suspend fun fetchPokemonSpecies(id: Int): Result<PokemonSpeciesResponse?, PokeDexApiException> {
         return execute { pokeApi.pokemonSpecies(id) }
+    }
+
+    override suspend fun fetchEvolutionChain(id: Int): Result<EvolutionChainResponse?, PokeDexApiException> {
+        return execute { pokeApi.evolutionChain(id) }
     }
 
     private suspend fun <T> execute(block: suspend () -> Response<T>): Result<T?, PokeDexApiException> {

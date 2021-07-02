@@ -1,6 +1,7 @@
 package com.example.composepokedex.domain.di
 
 import com.example.composepokedex.domain.*
+import com.example.composepokedex.repository.EvolutionChainRepository
 import com.example.composepokedex.repository.PokemonDetailViewRepository
 import com.example.composepokedex.repository.PokemonListViewRepository
 import com.example.composepokedex.repository.PokemonSpeciesRepository
@@ -36,5 +37,13 @@ object DomainModule {
         pokemonSpeciesRepository: PokemonSpeciesRepository
     ): GetPokemonSpeciesUseCase {
         return GetPokemonSpeciesUseCaseImpl(pokemonSpeciesRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideEvolutionChainUseCase(
+        evolutionChainRepository: EvolutionChainRepository
+    ): GetEvolutionChainUseCase {
+        return GetEvolutionChainUseCaseImpl(evolutionChainRepository)
     }
 }
