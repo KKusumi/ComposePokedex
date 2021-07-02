@@ -1,5 +1,6 @@
 package com.example.composepokedex.model.response
 
 data class EvolutionChainResponse(
-    val url: String
+    val chain: ChainResponse,
+    val id: Int
 )
