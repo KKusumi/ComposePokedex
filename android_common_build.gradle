@@ -48,4 +48,7 @@ dependencies {
     // Hilt
     implementation Dep.Google.Hilt.android
     kapt Dep.Google.Hilt.compiler
+
+    // Timber
+    implementation Dep.Other.timber
 }

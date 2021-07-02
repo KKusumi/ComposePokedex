@@ -7,5 +7,5 @@ dependencies {
     implementation project(':data:repository')
 
     // KotlinResult
-    implementation Dep.Other.KotlinResult.kotlinResult
+    implementation Dep.Other.kotlinResult
 }

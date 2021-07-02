@@ -8,7 +8,7 @@ dependencies {
     implementation project(':model')
 
     // Kotlin Result
-    implementation Dep.Other.KotlinResult.kotlinResult
+    implementation Dep.Other.kotlinResult
 
     // Retrofit
     implementation Dep.Square.Retrofit.retrofit

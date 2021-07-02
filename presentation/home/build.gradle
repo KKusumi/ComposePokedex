@@ -4,5 +4,5 @@ apply from: "${rootDir.absolutePath}/presentation/presentation_common_build.grad
 
 dependencies {
     // KotlinResult
-    implementation Dep.Other.KotlinResult.kotlinResult
+    implementation Dep.Other.kotlinResult
 }

@@ -73,4 +73,7 @@ dependencies {
 
     // Retrofit
     implementation Dep.Square.Retrofit.retrofit
+
+    // Timber
+    implementation Dep.Other.timber
 }

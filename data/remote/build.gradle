@@ -17,5 +17,5 @@ dependencies {
     implementation Dep.Google.gson
 
     // Kotlin Result
-    implementation Dep.Other.KotlinResult.kotlinResult
+    implementation Dep.Other.kotlinResult
 }

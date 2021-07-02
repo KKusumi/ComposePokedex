@@ -78,9 +78,7 @@ object Dep {
     }
 
     object Other {
-        object KotlinResult {
-            const val version = "1.1.10"
-            const val kotlinResult = "com.michael-bull.kotlin-result:kotlin-result:$version"
-        }
+        const val kotlinResult = "com.michael-bull.kotlin-result:kotlin-result:1.1.10"
+        const val timber = "com.jakewharton.timber:timber:4.7.1"
     }
 }
