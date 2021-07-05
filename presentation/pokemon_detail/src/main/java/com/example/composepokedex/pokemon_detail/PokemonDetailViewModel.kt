@@ -1,5 +1,8 @@
 package com.example.composepokedex.pokemon_detail
 
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -50,12 +53,14 @@ class PokemonDetailViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _pokemonDetailView: MutableLiveData<PokemonDetailView> = MutableLiveData()
-    val pokemonDetailView get() = _pokemonDetailView
+    val pokemonDetailView: LiveData<PokemonDetailView> get() = _pokemonDetailView
 
     private val _uiState: MutableLiveData<UiState> = MutableLiveData()
-    val uiState get() = _uiState
+    val uiState: LiveData<UiState> get() = _uiState
 
-    var evolutionChain: EvolutionChain? = null
+    private var _evolutionChain: MutableLiveData<EvolutionChain> = MutableLiveData()
+    val evolutionChain: LiveData<EvolutionChain> get() = _evolutionChain
+
 
     fun fetchPokemonDetail(number: Int) = viewModelScope.launch {
         Timber.d("fetchPokemonDetail number: $number")
@@ -89,7 +94,7 @@ class PokemonDetailViewModel @Inject constructor(
         getEvolutionChainUseCase.execute(id).mapBoth(
             success = {
                 Timber.d("fetchEvolutionChain success: $it")
-                evolutionChain = it
+                _evolutionChain.value = it
             },
             failure = {
                 Timber.e("fetchEvolutionChain failure: $it")

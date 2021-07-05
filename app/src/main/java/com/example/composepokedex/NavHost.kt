@@ -29,11 +29,15 @@ fun PokeDexNavHost(
         }
 
         composable(route = "${PokeDexDestination.POKEMON_DETAIL}/{number}") {
+            // getInt使えない
             it.arguments?.getString("number")?.let { number ->
                 val pokemonDetailViewModel = hiltViewModel<PokemonDetailViewModel>()
                 PokemonDetailScreen(
                     pokemonDetailViewModel = pokemonDetailViewModel,
-                    number = number,
+                    number = number.toInt(),
+                    onClickPokemon = { it
+                        navController.navigate("${PokeDexDestination.POKEMON_DETAIL}/$it")
+                    },
                     onClickBack = {
                         navController.popBackStack()
                     }
