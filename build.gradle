@@ -13,6 +13,8 @@ buildscript {
     }
 }
 
+apply from: file('gradle/dependencyGraph.gradle')
+
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
