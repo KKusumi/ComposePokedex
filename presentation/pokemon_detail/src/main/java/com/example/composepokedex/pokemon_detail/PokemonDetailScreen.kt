@@ -2,12 +2,9 @@ package com.example.composepokedex.pokemon_detail
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
@@ -25,7 +22,6 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.composepokedex.model.model.ChainLink
 import com.example.composepokedex.model.model.EvolutionChain
 import com.example.composepokedex.model.model.Type
 import com.example.composepokedex.model.view.PokemonDetailView
@@ -44,7 +40,7 @@ import kotlinx.coroutines.launch
 fun PokemonDetailScreen(
     pokemonDetailViewModel: PokemonDetailViewModel = viewModel(),
     number: Int,
-    onClickPokemon: (Int) -> Unit,
+    onClickNextPokemon: (Int) -> Unit,
     onClickBack: () -> Unit
 ) {
     val lifecycleObserver = remember(pokemonDetailViewModel) {
@@ -76,17 +72,8 @@ fun PokemonDetailScreen(
     BottomSheetScaffold(
         scaffoldState = bottomSheetScaffoldState,
         sheetContent = {
-            Column(
-                verticalArrangement = Arrangement.spacedBy(8.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .wrapContentHeight() // Height入れないとクラッシュする The initial value must have an associated anchor.
-                    .padding(top = 24.dp, bottom = 24.dp),
-            ) {
-                evolutionChain.getEvolutionList().forEach {
-                    EvolutionCard(species = it, onClickPokemon = onClickPokemon)
-                }
+            PokemonDetailBottomSheetContent(evolutionList = evolutionChain.getEvolutionList()) {
+                onClickNextPokemon.invoke(it)
             }
         },
         sheetPeekHeight = 0.dp,
@@ -97,11 +84,11 @@ fun PokemonDetailScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight()
+                .background(Color(0xfff5f5f5))
         ) {
             val (container, halfCircle, backArrow, evolution) = createRefs()
             val verticalScrollState = rememberScrollState()
 
-            // Half Circle
             Image(
                 painter = painterResource(id = getTypeHalfCircle(pokemonDetailView.type1)),
                 contentScale = ContentScale.FillBounds,
@@ -222,160 +209,6 @@ fun PokemonDetailScreen(
     }
 }
 
-@Composable
-fun PokemonDetailInfoPage1(
-    pokemonDetailView: PokemonDetailView
-) {
-    Column(
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        val typeText = if (pokemonDetailView.type2 != null) {
-            "${pokemonDetailView.type1.name}・${pokemonDetailView.type2?.name}"
-        } else {
-            pokemonDetailView.type1.name
-        }
-        StatusBarCard(label = "Type", value = typeText)
-        Spacer(modifier = Modifier.height(8.dp))
-
-        StatusBarCard(label = "Height", value = "${pokemonDetailView.height / 10}m")
-        Spacer(modifier = Modifier.height(8.dp))
-
-        StatusBarCard(label = "Weight", value = "${pokemonDetailView.weight / 10}kg")
-        Spacer(modifier = Modifier.height(8.dp))
-
-        StatusBarCard(label = "Ability 1", value = "${pokemonDetailView.ability1.ability.name}")
-        Spacer(modifier = Modifier.height(8.dp))
-
-        val ability2Text = pokemonDetailView.ability2?.ability?.name ?: ""
-        StatusBarCard(label = "Ability 2", value = ability2Text)
-        Spacer(modifier = Modifier.height(8.dp))
-
-        val hiddenAbility = pokemonDetailView.hiddenAbility?.ability?.name ?: ""
-        StatusBarCard(label = "HiddenAbility", value = hiddenAbility)
-    }
-}
-
-@Composable
-fun PokemonDetailInfoPage2(
-    pokemonDetailView: PokemonDetailView
-) {
-    Column(
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        StatusBarCard(label = "HP", value = "${pokemonDetailView.hp}")
-        Spacer(modifier = Modifier.height(8.dp))
-
-        StatusBarCard(label = "Attack", value = "${pokemonDetailView.attack}")
-        Spacer(modifier = Modifier.height(8.dp))
-
-        StatusBarCard(label = "Defense", value = "${pokemonDetailView.defense}")
-        Spacer(modifier = Modifier.height(8.dp))
-
-        StatusBarCard(label = "Special Attack", value = "${pokemonDetailView.special_attack}")
-        Spacer(modifier = Modifier.height(8.dp))
-
-        StatusBarCard(label = "Special Defense", value = "${pokemonDetailView.special_defense}")
-        Spacer(modifier = Modifier.height(8.dp))
-
-        StatusBarCard(label = "Speed", value = "${pokemonDetailView.speed}")
-    }
-}
-
-@Composable
-fun StatusBarCard(
-    label: String,
-    value: String
-) {
-    Surface(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(start = 40.dp, end = 40.dp),
-        shape = RoundedCornerShape(100),
-        elevation = 1.dp
-    ) {
-        ConstraintLayout(
-            modifier = Modifier.padding(top = 20.dp, bottom = 20.dp, start = 24.dp, end = 24.dp)
-        ) {
-            val (labelText, valueText) = createRefs()
-            Text(
-                text = label,
-                fontSize = 17.sp,
-                lineHeight = 22.sp,
-                modifier = Modifier.constrainAs(labelText) {
-                    top.linkTo(anchor = parent.top)
-                    bottom.linkTo(anchor = parent.bottom)
-                    start.linkTo(anchor = parent.start)
-                }
-            )
-            Text(
-                text = value,
-                fontSize = 17.sp,
-                lineHeight = 22.sp,
-                modifier = Modifier.constrainAs(valueText) {
-                    top.linkTo(anchor = parent.top)
-                    bottom.linkTo(anchor = parent.bottom)
-                    end.linkTo(anchor = parent.end)
-                }
-            )
-        }
-    }
-}
-
-@Composable
-fun EvolutionCard(
-    species: ChainLink.Species,
-    onClickPokemon: (Int) -> Unit
-) {
-    Surface(
-        modifier = Modifier
-            .width(248.dp)
-            .wrapContentHeight()
-            .clickable { onClickPokemon.invoke(species.id) },
-        shape = RoundedCornerShape(100),
-        elevation = 1.dp,
-    ) {
-        ConstraintLayout {
-            val (image, number, name) = createRefs()
-            Image(
-                painter = rememberCoilPainter(request = species.thumbnailImageUrl),
-                contentDescription = "thumbnail",
-                modifier = Modifier
-                    .width(48.dp)
-                    .height(48.dp)
-                    .constrainAs(image) {
-                        top.linkTo(anchor = parent.top, margin = 8.dp)
-                        start.linkTo(anchor = parent.start, margin = 16.dp)
-                        bottom.linkTo(anchor = parent.bottom, margin = 8.dp)
-                    }
-            )
-            Text(
-                text = "No.${species.id.toString().padStart(3, '0')}",
-                fontSize = 11.sp,
-                lineHeight = 13.sp,
-                modifier = Modifier.constrainAs(number) {
-                    top.linkTo(anchor = image.top)
-                    linkTo(
-                        start = image.end,
-                        end = parent.end,
-                        startMargin = 24.dp,
-                        endMargin = 24.dp,
-                        bias = 0f
-                    )
-                }
-            )
-            Text(
-                text = species.name.replaceFirstChar { it.uppercase() },
-                fontSize = 17.sp,
-                lineHeight = 22.sp,
-                modifier = Modifier.constrainAs(name) {
-                    top.linkTo(anchor = number.bottom, margin = 4.dp)
-                    linkTo(start = number.start, end = parent.end, endMargin = 24.dp, bias = 0f)
-                }
-            )
-        }
-    }
-}
-
 @RequiresApi(Build.VERSION_CODES.M)
 @ExperimentalPagerApi
 @Preview
@@ -384,7 +217,7 @@ fun PokemonDetailScreenPreview() {
     PokemonDetailScreen(
         pokemonDetailViewModel = getFakePokemonDetailViewModel(),
         number = 0,
-        onClickPokemon = {},
+        onClickNextPokemon = {},
         onClickBack = {}
     )
 }

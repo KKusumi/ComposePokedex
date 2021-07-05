@@ -35,7 +35,7 @@ fun PokeDexNavHost(
                 PokemonDetailScreen(
                     pokemonDetailViewModel = pokemonDetailViewModel,
                     number = number.toInt(),
-                    onClickPokemon = { it
+                    onClickNextPokemon = { it
                         navController.navigate("${PokeDexDestination.POKEMON_DETAIL}/$it")
                     },
                     onClickBack = {
