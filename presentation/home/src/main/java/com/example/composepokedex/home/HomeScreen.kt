@@ -95,14 +95,14 @@ fun HomeListItem(
         )
         Column(modifier = Modifier.padding(start = 24.dp)) {
             Text(
-                text = "No.${pokemon.number}",
+                text = "No.${pokemon.number.toString().padStart(3, '0')}",
                 modifier = Modifier.fillMaxWidth(),
                 fontSize = 11.sp,
                 lineHeight = 13.sp
             )
 
             Text(
-                text = pokemon.name,
+                text = pokemon.name.replaceFirstChar { it.uppercase() },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 8.dp),
