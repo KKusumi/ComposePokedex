@@ -3,8 +3,8 @@ package dependencies
 object Dep {
 
     object Plugin {
-        const val gradle = "com.android.tools.build:gradle:7.1.0-alpha02"
-        const val kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.10"
+        const val gradle = "com.android.tools.build:gradle:7.1.3"
+        const val kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10"
         const val hilt = "com.google.dagger:hilt-android-gradle-plugin:${Google.Hilt.version}"
     }
 
@@ -15,7 +15,7 @@ object Dep {
         const val constraintLayoutCompose = "androidx.constraintlayout:constraintlayout-compose:1.0.0-alpha08"
 
         object Compose {
-            const val version = "1.0.0-rc01"
+            const val version = "1.1.1"
             const val material = "androidx.compose.material:material:$version"
             const val runtime = "androidx.compose.runtime:runtime-livedata:$version"
 
@@ -31,8 +31,7 @@ object Dep {
         }
 
         object Hilt {
-            const val lifecycleViewModel = "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03"
-            const val navigationCompose = "androidx.hilt:hilt-navigation-compose:1.0.0-alpha02"
+            const val navigationCompose = "androidx.hilt:hilt-navigation-compose:1.0.0"
         }
 
         object Test {
@@ -53,7 +52,7 @@ object Dep {
         }
 
         object Hilt {
-            const val version = "2.37"
+            const val version = "2.41"
             const val android = "com.google.dagger:hilt-android:$version"
             const val compiler = "com.google.dagger:hilt-android-compiler:$version"
         }
