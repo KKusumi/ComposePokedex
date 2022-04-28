@@ -31,3 +31,26 @@ Home | PokemonDetail
 ### モジュール図
 
 <img src="project.dot.png" width="500"/>
+
+### 構成
+
+```sh
+$ tree -D -L 2
+```
+
+```
+.
+├── app
+│   └── src
+├── data
+│   ├── local
+│   ├── remote
+│   └── repository
+├── domain
+├── model
+├── presentation
+│   ├── common
+│   ├── home
+│   └── pokemon_detail
+└── shared
+```
